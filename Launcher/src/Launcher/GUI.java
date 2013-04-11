@@ -1,4 +1,6 @@
-package Main;
+package Launcher;
+
+
 
 import java.awt.Image;
 import java.io.File;
@@ -59,7 +61,6 @@ public class GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setForeground(java.awt.Color.white);
-        setMaximumSize(new java.awt.Dimension(214, 2147483647));
         setName("Tanik Launcher"); // NOI18N
         setResizable(false);
 
