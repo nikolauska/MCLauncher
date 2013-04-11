@@ -1,19 +1,21 @@
-package Launcher;
-
-
+package Main;
 
 import java.awt.Image;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
+import java.util.Enumeration;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+import java.util.zip.ZipFile;
 import javax.swing.ImageIcon;
 import javax.swing.SwingWorker;
 import org.apache.commons.io.*;
@@ -25,12 +27,12 @@ public class GUI extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         (new buttons(false)).execute();
-        (new kuva(0)).execute();
-        (new kuva(1)).execute();
-        (new kuva(2)).execute();
-        (new kuva(3)).execute();
-        (new kuva(4)).execute();
-        (new kuva(5)).execute();
+        (new picLoad(0)).execute();
+        (new picLoad(1)).execute();
+        (new picLoad(2)).execute();
+        (new picLoad(3)).execute();
+        (new picLoad(4)).execute();
+        (new picLoad(5)).execute();
         (new buttons(true)).execute();
     }
 
@@ -61,6 +63,7 @@ public class GUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setForeground(java.awt.Color.white);
+        setMaximumSize(new java.awt.Dimension(214, 2147483647));
         setName("Tanik Launcher"); // NOI18N
         setResizable(false);
 
@@ -253,39 +256,54 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_URL2ActionPerformed
 
     private void custom3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custom3ActionPerformed
-        // TODO add your handling code here:
+        (new batWrite   ("custom3")).execute();
     }//GEN-LAST:event_custom3ActionPerformed
 
     private void update3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update3ActionPerformed
-        // TODO add your handling code here:
+        (new buttons    (false)).execute();
+        (new Download   (URL3.getText(), custom3Folder)).execute();
+        (new buttons    (true)).execute();
     }//GEN-LAST:event_update3ActionPerformed
 
     private void custom2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custom2ActionPerformed
-        // TODO add your handling code here:
+        (new batWrite   ("custom2")).execute();
     }//GEN-LAST:event_custom2ActionPerformed
 
     private void update2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update2ActionPerformed
-        // TODO add your handling code here:
+        (new buttons    (false)).execute();
+        (new Download   (URL2.getText(), custom2Folder)).execute();
+        (new buttons    (true)).execute();
     }//GEN-LAST:event_update2ActionPerformed
 
     private void custom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custom1ActionPerformed
-        // TODO add your handling code here:
+        (new batWrite   ("custom1")).execute();
     }//GEN-LAST:event_custom1ActionPerformed
 
     private void update1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update1ActionPerformed
-        // TODO add your handling code here:
+        (new buttons    (false)).execute();
+        (new Download   (URL1.getText(), desktop)).execute();
+        (new buttons    (true)).execute();
     }//GEN-LAST:event_update1ActionPerformed
 
     private void ftbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftbActionPerformed
-        // TODO add your handling code here:
+        try {
+            Runtime.getRuntime().exec(ftbExe);
+            System.exit(0);
+        } catch (IOException ex) {teksti.setText("Error: FTB.exe not found");}        
     }//GEN-LAST:event_ftbActionPerformed
 
     private void technicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_technicActionPerformed
-
+        try {
+            Runtime.getRuntime().exec(ftbExe);
+            System.exit(0);
+        } catch (IOException ex) {teksti.setText("Error: Techniclauncher.exe not found");}      
     }//GEN-LAST:event_technicActionPerformed
 
     private void vanillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vanillaActionPerformed
-
+        try {
+            Runtime.getRuntime().exec(ftbExe);
+            System.exit(0);
+        } catch (IOException ex) {teksti.setText("Error: minecraft.exe not found!");}      
     }//GEN-LAST:event_vanillaActionPerformed
     
     public static void main(String args[]) {
@@ -317,19 +335,54 @@ public class GUI extends javax.swing.JFrame {
             return null;
        }
     }
+    
+     class batWrite extends SwingWorker<String, Object> {
+        String pack;
+        
+        public batWrite(String pack) {
+            this.pack = pack;
+        }
+        @Override
+        public String doInBackground(){
+            try {
+            File f = new File(customBat);
+            f.createNewFile();
+            BufferedWriter bat;
+            bat = new BufferedWriter(new FileWriter(customBat));
+            bat.write(  
+                        "@echo off" + "\n" +
+                        "Title Minecraft Launcher" + "\n" +
+                        "set APPDATA=%CD%\\" + this.pack + "\n" +
+                        "start %CD%\\minecraft.exe"
+                     );
+            bat.close();
+            //Process p = Runtime.getRuntime().exec("cmd /c start " + customBat);
+            //p.waitFor();
+            //f.delete();       
+            } catch (IOException e) {teksti.setText("Error: Creating bat file failed!");}
+            return null;
+       }
+    }
+    
     class Download extends SwingWorker<String, Object> {
         String dlURL;
-        String file;
         String unZipTo;
         
-        public Download(String dlURL, String file, String unZipTo) {
+        public Download(String dlURL, String unZipTo) {
             this.dlURL      = dlURL;
-            this.file       = file;
             this.unZipTo    = unZipTo;
         }
         
         @Override
         public String doInBackground() {
+            // easteregg
+            if(dlURL.equals("pidipidipidi")){   
+                try {
+                    java.awt.Desktop.getDesktop().browse(java.net.URI.create("http://www.youtube.com/watch?v=n5JiIkjpeDY&t=0m15s"));
+                } catch (java.io.IOException e) {teksti.setText("Error: EasterEgg could not be opened :( ");}
+                return null;
+            }
+            
             // download function from http://cookbooks.adobe.com/post_Download_a_file_from_a_URL_in_Java-17947.html
             try
             {
@@ -338,7 +391,7 @@ public class GUI extends javax.swing.JFrame {
                 URL url = new URL(this.dlURL);
                 url.openConnection();
                 InputStream reader = url.openStream(); 
-                FileOutputStream writer = new FileOutputStream(this.file);
+                FileOutputStream writer = new FileOutputStream(zip);
                 byte[] buffer = new byte[153600];
                 int totalBytesRead = 0;
                 int bytesRead;
@@ -350,20 +403,21 @@ public class GUI extends javax.swing.JFrame {
                     totalBytesRead += bytesRead;
                     teksti.setText("Downloaded: " + (totalBytesRead/1048576) + "MB");
                 }
-                    
+                writer.close();
+                
                 // start unzipping after download
-                unZipIt(this.file, this.unZipTo);
+                unZipIt(zip, this.unZipTo);
                 
                 // make string to file so unnecessary download file can be deleted
-                File zip = new File(this.file);
-                zip.delete();
+                File zipF = new File(zip);
+                //zipF.delete();
                     
                 //end download
                 teksti.setText("Ready!");
                 
             }
             //inform user from error
-            catch (MalformedURLException e){teksti.setText("Error: URL not connected!");}
+            catch (MalformedURLException e){teksti.setText("Error: URL cannot be connected!");}
             catch (IOException e){teksti.setText("Error: Place to save file was incorrect");}
             return null;
         }
@@ -399,10 +453,13 @@ public class GUI extends javax.swing.JFrame {
         }
     }
     
-    class kuva extends SwingWorker<String, Object> {
+    //
+    class picLoad extends SwingWorker<String, Object> {
         int customNum;
         
-        public kuva (int customNum){this.customNum = customNum;}
+        public picLoad (int customNum){
+            this.customNum = customNum;
+        }
        
         @Override
         public String doInBackground() {
@@ -412,26 +469,28 @@ public class GUI extends javax.swing.JFrame {
             Image newimg = img.getScaledInstance(kuva0.getWidth(),kuva0.getHeight(),java.awt.Image.SCALE_SMOOTH);
              
             // getting image size
-            if(customNum == 0){newimg = img.getScaledInstance(kuva0.getWidth(),kuva0.getHeight(),  java.awt.Image.SCALE_SMOOTH);}
-            else if(customNum == 1){newimg = img.getScaledInstance(kuva1.getWidth(),kuva1.getHeight(),  java.awt.Image.SCALE_SMOOTH);}
-            else if(customNum == 2){newimg = img.getScaledInstance(kuva2.getWidth(),kuva2.getHeight(),  java.awt.Image.SCALE_SMOOTH);}
-            else if(customNum == 3){newimg = img.getScaledInstance(kuva3.getWidth(),kuva3.getHeight(),  java.awt.Image.SCALE_SMOOTH);}
-            else if(customNum == 4){newimg = img.getScaledInstance(kuva4.getWidth(),kuva4.getHeight(),  java.awt.Image.SCALE_SMOOTH);}
-            else if(customNum == 5){newimg = img.getScaledInstance(kuva5.getWidth(),kuva5.getHeight(),  java.awt.Image.SCALE_SMOOTH);}
-            else {teksti.setText("Error: Incorrect image number");}
-            
+            switch(customNum){
+                case 0:{newimg = img.getScaledInstance(kuva0.getWidth(),kuva0.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
+                case 1:{newimg = img.getScaledInstance(kuva1.getWidth(),kuva1.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
+                case 2:{newimg = img.getScaledInstance(kuva2.getWidth(),kuva2.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
+                case 3:{newimg = img.getScaledInstance(kuva3.getWidth(),kuva3.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
+                case 4:{newimg = img.getScaledInstance(kuva4.getWidth(),kuva4.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
+                case 5:{newimg = img.getScaledInstance(kuva5.getWidth(),kuva5.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
+                default:{teksti.setText("Error: Incorrect image number");}
+            }
             // setting imageIcon
             image = new ImageIcon(newimg);
              
             // setting imageIcon to right picture
-            if(customNum == 0){kuva0.setIcon(image);}
-            else if(customNum == 1){kuva1.setIcon(image);}
-            else if(customNum == 2){kuva2.setIcon(image);}
-            else if(customNum == 3){kuva3.setIcon(image);}
-            else if(customNum == 4){kuva4.setIcon(image);}
-            else if(customNum == 5){kuva5.setIcon(image);}
-            else {teksti.setText("Error: Incorrect image number");}
-             
+            switch(customNum){
+                case 0:{kuva0.setIcon(image); break;}
+                case 1:{kuva1.setIcon(image); break;}
+                case 2:{kuva2.setIcon(image); break;}
+                case 3:{kuva3.setIcon(image); break;}
+                case 4:{kuva4.setIcon(image); break;}
+                case 5:{kuva5.setIcon(image); break;}
+                default:{teksti.setText("Error: Incorrect image number");}
+            } 
             return null;
         }
      }
@@ -461,14 +520,14 @@ public class GUI extends javax.swing.JFrame {
         teksti.setText(src + " --> " + dest);
     }
     
-    /*
-    public void unZip(String strZipFile, String unZipTo) {      
+    // unzip function (can't remember where this was found)
+    public void unZipIt(String strZipFile, String unZipTo) {      
         try {
             File fSourceZip = new File(strZipFile);
             String zipPath = strZipFile.substring(0, strZipFile.length()-4);
             File temp = new File(unZipTo);
             temp.mkdir();
-            teksti.setText(zipPath + " luotu");
+            teksti.setText(zipPath + " created");
 
             ZipFile zipFile = new ZipFile(fSourceZip);
             Enumeration e = zipFile.entries();
@@ -482,7 +541,7 @@ public class GUI extends javax.swing.JFrame {
                 if(entry.isDirectory()){
                     continue;
                 } else {
-                    teksti.setText("Puretaan: " + entry);
+                    teksti.setText("Unzipping: " + entry);
                     BufferedInputStream bis = new BufferedInputStream(zipFile.getInputStream(entry));                    
                     byte buffer[] = new byte[1024];
                     FileOutputStream fos = new FileOutputStream(destinationFilePath);
@@ -496,71 +555,56 @@ public class GUI extends javax.swing.JFrame {
                     bos.flush();
                     bos.close();                                      
                     bis.close();
+                    fos.close();
                 }
-            }
+            }            
+            zipFile.close();            
         }
-        catch(IOException e){teksti.setText("Error: Zipfile not found!");}
-               
-    }*/
+        catch(IOException e){teksti.setText("Error: Zipfile not found!");}               
+    }
     
-    // unZip function by mkyong from http://www.mkyong.com/java/how-to-decompress-files-from-a-zip-file/
-    public void unZipIt(String zipFile, String outputFolder){ 
-        byte[] buffer = new byte[1024];
+    public void picChange(int customNum){
         try{
-            //create output directory is not exists
-            File folder = new File(outputFolder);
-            if(!folder.exists()){
-                folder.mkdir();
-            }
-            ZipInputStream zis = new ZipInputStream(new FileInputStream(zipFile));
-            ZipEntry ze = zis.getNextEntry();
-
-            while(ze!=null){
-                String fileName = ze.getName();
-                File newFile = new File(outputFolder + File.separator + fileName);
-
-                teksti.setText("Unzipping: "+ newFile.getAbsoluteFile());
-
-                //create all non exists folders
-                //else you will hit FileNotFoundException for compressed folder
-                new File(newFile.getParent()).mkdirs();
-                FileOutputStream fos = new FileOutputStream(newFile);
-                int len;             
-                while ((len = zis.read(buffer)) > 0) {
-                    fos.write(buffer, 0, len);
-                }
-            }
-            //ze = zis.getNextEntry();
-            zis.closeEntry();
-            teksti.setText("Done");
-
-       }catch(IOException ex){System.out.println(ex);}
+            File src = new File(custom1Folder + "\\pic.png");
+            File dest = new File(imageFolder + (customNum + 2) +".png");
+            OutputStream out;
+            InputStream in; 
+                    
+            in = new FileInputStream(src);
+            out = new FileOutputStream(dest);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = in.read(buffer)) > 0) {out.write(buffer, 0, length);}
+            out.close();
+        } catch(IOException e){teksti.setText("ERROR: custom image file not found!");}                   
     }
     
     // path to roaming folder
     String Roaming          = System.getProperty("user.home") + "\\AppData\\Roaming\\";
     
-    // rest of the needed path files
+    // path to folders
     String launcherFolder   = Roaming           + "Tanik_Launcher";
-    String launcherZip      = Roaming           + "Tanik_Launcher.zip";
     String vanillaFolder    = Roaming           + ".minecraft";
     String launcherVanilla  = launcherFolder    + "\\minecraft";
     String custom1Folder    = launcherFolder    + "\\custom1";
     String custom2Folder    = launcherFolder    + "\\custom2";
     String custom3Folder    = launcherFolder    + "\\custom3";
-    String vanillaExe       = launcherFolder    + "\\minecraft.exe";
-    String technicExe       = launcherFolder    + "\\techniclauncher.exe";
-    String ftbExe           = launcherFolder    + "\\ftb.exe";
     //String imageFolder    = launcherFolder    + "Images\\";
     String imageFolder      = "D:\\Ohjelmointi\\Java\\Launcher\\src\\Images\\"; // WIP folder
     
+    // rest of the needed path files       
+    String vanillaExe       = launcherFolder    + "\\minecraft.exe";
+    String technicExe       = launcherFolder    + "\\techniclauncher.exe";
+    String ftbExe           = launcherFolder    + "\\ftb.exe";
+    String desktop          = "Z:\\Dox\\Desktop";
+    //String zip            = Roaming           + "\\temp.zip";
+    String zip              = "Z:\\Dox\\Desktop\\temp.zip";
+    //String customBat        = Roaming           + "\\temp.bat";
+    String customBat        = "Z:\\Dox\\Desktop\\temp.bat";
     
     //download URL and version number
     String launcherURL      = "";
     String versio           = "0.1";  
-    
-    // other variables
-    List<String> fileList;
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
