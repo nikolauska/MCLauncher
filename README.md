@@ -1,0 +1,4 @@
+MCLauncher
+==========
+
+Java school project
