@@ -268,7 +268,7 @@ public class GUI extends javax.swing.JFrame {
             FileUtils.deleteDirectory(f);
             f.mkdir();
         } catch (IOException e) {teksti.setText("ERROR: Folder not found, skipping deleting!"); f.mkdir();}
-        (new Copy   (launcherVanilla,custom3Folder)).execute();
+        (new Copy       (launcherVanilla,custom3Folder)).execute();
         (new Download   (URL3.getText(), custom3Folder, custom3Jar)).execute();
         
         (new buttons    (true)).execute();
@@ -286,7 +286,7 @@ public class GUI extends javax.swing.JFrame {
             FileUtils.deleteDirectory(f);
             f.mkdir();
         } catch (IOException e) {teksti.setText("ERROR: Folder not found, skipping deleting!"); f.mkdir();}
-        (new Copy   (launcherVanilla,custom2Folder)).execute();
+        (new Copy       (launcherVanilla,custom2Folder)).execute();
         (new Download   (URL2.getText(), custom2Folder, custom2Jar)).execute();
         
         (new buttons    (true)).execute();
@@ -304,7 +304,7 @@ public class GUI extends javax.swing.JFrame {
             FileUtils.deleteDirectory(f);
             f.mkdir();
         } catch (IOException e) {teksti.setText("ERROR: Folder not found, skipping deleting!"); f.mkdir();}
-        (new Copy   (launcherVanilla,custom1Folder)).execute();
+        (new Copy       (launcherVanilla,custom1Folder)).execute();
         (new Download   (URL1.getText(), desktop, custom1Jar)).execute();
         
         (new buttons    (true)).execute();
@@ -313,21 +313,21 @@ public class GUI extends javax.swing.JFrame {
     private void ftbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftbActionPerformed
         try {
             Runtime.getRuntime().exec(ftbExe);
-            System.exit(0);
+            teksti.setText("Feed the Beast started");
         } catch (IOException ex) {teksti.setText("Error: FTB.exe not found");}        
     }//GEN-LAST:event_ftbActionPerformed
 
     private void technicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_technicActionPerformed
         try {
-            Runtime.getRuntime().exec(ftbExe);
-            System.exit(0);
+            Runtime.getRuntime().exec(technicExe);
+            teksti.setText("Technic Launcher started");
         } catch (IOException ex) {teksti.setText("Error: Techniclauncher.exe not found");}      
     }//GEN-LAST:event_technicActionPerformed
 
     private void vanillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vanillaActionPerformed
         try {
-            Runtime.getRuntime().exec(ftbExe);
-            System.exit(0);
+            Runtime.getRuntime().exec(vanillaExe);
+            teksti.setText("Vanilla minecraft started");
         } catch (IOException ex) {teksti.setText("Error: minecraft.exe not found!");}      
     }//GEN-LAST:event_vanillaActionPerformed
     
@@ -432,25 +432,37 @@ public class GUI extends javax.swing.JFrame {
                 }
                 writer.close();
                 
-                // start unzipping after download
-                unZipIt(zip, this.unZipTo);
-                File zipF = new File(zip);
-                zipF.delete();
-                
-                //start combining
                 File tempF = new File(temp); 
                 File METAF = new File(META);
+                File zipF = new File(zip);
+                
+                // start unzipping after download
+                unZipIt(zip, this.unZipTo);
+                teksti.setText("Downloaded file unzipped");
+                zipF.delete();
+                teksti.setText("zip file deleted");
+                
                 
                 // create temp folder and unzipt to it
                 tempF.mkdir();
                 unZipIt(vanillaJar, temp);
                 unZipIt(customJar, temp);
+                teksti.setText("Jar files unzipped");
+                
                 // delete META-INF if found
                 try { 
                     FileUtils.deleteDirectory(METAF);
-                } catch (IOException e) {teksti.setText("META-INF not found, skip deleting");}
+                    teksti.setText("META-INF deleted");
+                } catch (IOException e) {teksti.setText("META-INF not found, skip deleting!");}
+                
                 zip(temp,customJar);
-                    
+                
+                // delete temp folder
+                try { 
+                    FileUtils.deleteDirectory(tempF);
+                    teksti.setText("Temp folder deleted ");
+                } catch (IOException e) {teksti.setText("ERROR: temp folder not found!");}
+                
                 //end download
                 teksti.setText("Ready!");
                 
@@ -481,7 +493,8 @@ public class GUI extends javax.swing.JFrame {
             try {
                 FileUtils.deleteDirectory(destFolder);
                 destFolder.mkdir();
-            } catch (IOException e) {teksti.setText("Folder to copy not found, skipping deleting!");; destFolder.mkdir();} 
+                teksti.setText("Folder to copy recreated");
+            } catch (IOException e) {teksti.setText("Folder to copy not found, skipping deleting!"); destFolder.mkdir();} 
             
             try {
                 copyFolder(srcFolder,destFolder);
@@ -527,7 +540,8 @@ public class GUI extends javax.swing.JFrame {
                 case 4:{kuva4.setIcon(image); break;}
                 case 5:{kuva5.setIcon(image); break;}
                 default:{teksti.setText("Error: Incorrect image number");}
-            } 
+            }
+            teksti.setText("Images loaded");
             return null;
         }
      }
@@ -656,6 +670,8 @@ public class GUI extends javax.swing.JFrame {
             int length;
             while ((length = in.read(buffer)) > 0) {out.write(buffer, 0, length);}
             out.close();
+            (new picLoad(customNum)).execute();
+            teksti.setText("New image loaded");
         } catch(IOException e){teksti.setText("ERROR: custom image file not found!");}                   
     }
     
