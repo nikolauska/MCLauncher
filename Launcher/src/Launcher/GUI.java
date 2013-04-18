@@ -460,7 +460,7 @@ public class GUI extends javax.swing.JFrame {
                 // delete META-INF if found
                 try { 
                     FileUtils.deleteDirectory(METAF);
-                    teksti.setText("META-INF deleted");
+                    text = "META-INF deleted"; scroll();
                 } catch (IOException e) {text = "META-INF not found, skip deleting!"; scroll();}
                 
                 zip(temp,customJar);
@@ -501,7 +501,7 @@ public class GUI extends javax.swing.JFrame {
             try {
                 FileUtils.deleteDirectory(destFolder);
                 destFolder.mkdir();
-                teksti.setText("Folder to copy recreated");
+                text = "Folder to copy recreated"; scroll();
             } catch (IOException e) {text = "Folder to copy not found, skipping deleting!"; scroll(); destFolder.mkdir();} 
             
             try {
@@ -679,12 +679,12 @@ public class GUI extends javax.swing.JFrame {
             while ((length = in.read(buffer)) > 0) {out.write(buffer, 0, length);}
             out.close();
             (new picLoad(customNum)).execute();
-            teksti.setText("New image loaded");
+            text = "New image loaded"; scroll();
         } catch(IOException e){text = "ERROR: custom image file not found!"; scroll();}                   
     }
     
     public void scroll()
-            {           
+    {           
                         tulostus = teksti.getText() + "\n" + text + "\n";
                         teksti.setText(tulostus);
 
@@ -692,7 +692,21 @@ public class GUI extends javax.swing.JFrame {
                         teksti.selectAll();
                         y = teksti.getSelectionEnd();
                         teksti.select(y,y);
-            }
+    }
+    public void fileCheck()
+    {
+        File kansio = new File (System.getProperty("user.home") + "/AppData/Roaming/.minecraft/bin/minecraft.jar");
+        
+        if (kansio.exists())
+        {
+            System.out.println("Kansio on olemassa");
+        }
+        
+        else
+        {
+            System.out.println("Kansiota ei ole olemassa");
+        }
+    }
     
     // path to roaming folder
     String Roaming          = System.getProperty("user.home") + "\\AppData\\Roaming\\";
