@@ -37,29 +37,21 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="vanilla" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="kuva3" alignment="0" pref="281" max="32767" attributes="0"/>
-                                  <Component id="kuva0" max="32767" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="technic" max="32767" attributes="0"/>
-                                  <Component id="kuva1" alignment="1" min="-2" pref="273" max="-2" attributes="0"/>
-                                  <Component id="kuva4" alignment="1" min="-2" pref="274" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="kuva2" min="-2" pref="253" max="-2" attributes="0"/>
-                                  <Component id="ftb" min="-2" pref="253" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
-                              <Component id="teksti" min="-2" pref="823" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                          <Component id="vanilla" alignment="0" max="32767" attributes="0"/>
+                          <Component id="kuva3" alignment="0" pref="281" max="32767" attributes="0"/>
+                          <Component id="kuva0" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="technic" max="32767" attributes="0"/>
+                          <Component id="kuva1" alignment="1" min="-2" pref="273" max="-2" attributes="0"/>
+                          <Component id="kuva4" alignment="1" min="-2" pref="274" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="kuva2" min="-2" pref="253" max="-2" attributes="0"/>
+                          <Component id="ftb" min="-2" pref="253" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -67,7 +59,7 @@
                       <Component id="URL1" min="-2" pref="281" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Component id="URL2" min="-2" pref="274" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="16" max="32767" attributes="0"/>
                       <Component id="URL3" min="-2" pref="253" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -91,6 +83,10 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="update3" min="-2" pref="253" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="JScrollPane" max="32767" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -113,9 +109,9 @@
                   <Component id="technic" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="ftb" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace pref="15" max="32767" attributes="0"/>
+              <Component id="JScrollPane" min="-2" pref="121" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="teksti" pref="125" max="32767" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="kuva3" alignment="1" min="-2" pref="155" max="-2" attributes="0"/>
                   <Component id="kuva4" alignment="1" min="-2" pref="155" max="-2" attributes="0"/>
@@ -145,15 +141,6 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="teksti">
-      <Properties>
-        <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Valmis"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-      </AuxValues>
-    </Component>
     <Component class="javax.swing.JTextField" name="URL1">
       <Properties>
         <Property name="text" type="java.lang.String" value="Download URL"/>
@@ -286,5 +273,22 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="URL2ActionPerformed"/>
       </Events>
     </Component>
+    <Container class="javax.swing.JScrollPane" name="JScrollPane">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="teksti">
+          <Properties>
+            <Property name="editable" type="boolean" value="false"/>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+            <Property name="text" type="java.lang.String" value="Valmis"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>

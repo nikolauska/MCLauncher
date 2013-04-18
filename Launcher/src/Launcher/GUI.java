@@ -41,7 +41,6 @@ public class GUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        teksti = new javax.swing.JLabel();
         URL1 = new javax.swing.JTextField();
         technic = new javax.swing.JButton();
         kuva3 = new javax.swing.JLabel();
@@ -60,6 +59,8 @@ public class GUI extends javax.swing.JFrame {
         custom3 = new javax.swing.JButton();
         custom1 = new javax.swing.JButton();
         URL2 = new javax.swing.JTextField();
+        JScrollPane = new javax.swing.JScrollPane();
+        teksti = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -67,9 +68,6 @@ public class GUI extends javax.swing.JFrame {
         setMaximumSize(new java.awt.Dimension(214, 2147483647));
         setName("Tanik Launcher"); // NOI18N
         setResizable(false);
-
-        teksti.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        teksti.setText("Valmis");
 
         URL1.setText("Download URL");
         URL1.addActionListener(new java.awt.event.ActionListener() {
@@ -159,6 +157,12 @@ public class GUI extends javax.swing.JFrame {
             }
         });
 
+        teksti.setEditable(false);
+        teksti.setColumns(20);
+        teksti.setRows(5);
+        teksti.setText("Valmis");
+        JScrollPane.setViewportView(teksti);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -167,30 +171,25 @@ public class GUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(vanilla, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(kuva3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
-                                    .addComponent(kuva0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(technic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(kuva1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(kuva4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(kuva2, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(ftb, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 9, Short.MAX_VALUE)
-                                .addComponent(teksti, javax.swing.GroupLayout.PREFERRED_SIZE, 823, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(vanilla, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(kuva3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
+                            .addComponent(kuva0, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(technic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(kuva1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(kuva4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(kuva2, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ftb, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(URL1, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
                         .addComponent(URL2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                         .addComponent(URL3, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(569, 569, 569)
@@ -209,7 +208,10 @@ public class GUI extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(update2, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(update3, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(update3, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(JScrollPane)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -226,9 +228,9 @@ public class GUI extends javax.swing.JFrame {
                     .addComponent(vanilla)
                     .addComponent(technic)
                     .addComponent(ftb))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addComponent(JScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(teksti, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(kuva3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(kuva4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -273,7 +275,7 @@ public class GUI extends javax.swing.JFrame {
         try {
             FileUtils.deleteDirectory(f);
             f.mkdir();
-        } catch (IOException e) {teksti.setText("ERROR: Folder not found, skipping deleting!"); f.mkdir();}
+        } catch (IOException e) {text = "ERROR: Folder not found, skipping deleting!"; scroll(); f.mkdir();}
         (new Copy       (launcherVanilla,custom3Folder)).execute();
         (new Download   (URL3.getText(), custom3Folder, custom3Jar)).execute();
         
@@ -291,7 +293,7 @@ public class GUI extends javax.swing.JFrame {
         try {
             FileUtils.deleteDirectory(f);
             f.mkdir();
-        } catch (IOException e) {teksti.setText("ERROR: Folder not found, skipping deleting!"); f.mkdir();}
+        } catch (IOException e) {text = "ERROR: Folder not found, skipping deleting!"; scroll(); f.mkdir();}
         (new Copy       (launcherVanilla,custom2Folder)).execute();
         (new Download   (URL2.getText(), custom2Folder, custom2Jar)).execute();
         
@@ -309,7 +311,7 @@ public class GUI extends javax.swing.JFrame {
         try {
             FileUtils.deleteDirectory(f);
             f.mkdir();
-        } catch (IOException e) {teksti.setText("ERROR: Folder not found, skipping deleting!"); f.mkdir();}
+        } catch (IOException e) {text = "ERROR: Folder not found, skipping deleting!"; scroll(); f.mkdir();}
         (new Copy       (launcherVanilla,custom1Folder)).execute();
         (new Download   (URL1.getText(), desktop, custom1Jar)).execute();
         
@@ -319,22 +321,22 @@ public class GUI extends javax.swing.JFrame {
     private void ftbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftbActionPerformed
         try {
             Runtime.getRuntime().exec(ftbExe);
-            teksti.setText("Feed the Beast started");
-        } catch (IOException ex) {teksti.setText("Error: FTB.exe not found");}        
+            text = "Feed the Beast started"; scroll();
+        } catch (IOException ex) {text = "Error: FTB.exe not found"; scroll();}        
     }//GEN-LAST:event_ftbActionPerformed
 
     private void technicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_technicActionPerformed
         try {
             Runtime.getRuntime().exec(technicExe);
-            teksti.setText("Technic Launcher started");
-        } catch (IOException ex) {teksti.setText("Error: Techniclauncher.exe not found");}      
+            text = "Technic Launcher started"; scroll();
+        } catch (IOException ex) {text = "Error: Techniclauncher.exe not found"; scroll();}      
     }//GEN-LAST:event_technicActionPerformed
 
     private void vanillaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_vanillaActionPerformed
         try {
             Runtime.getRuntime().exec(vanillaExe);
-            teksti.setText("Vanilla minecraft started");
-        } catch (IOException ex) {teksti.setText("Error: minecraft.exe not found!");}      
+            text = "Vanilla minecraft started"; scroll();
+        } catch (IOException ex) {text = "Error: minecraft.exe not found!"; scroll();}      
     }//GEN-LAST:event_vanillaActionPerformed
     
     public static void main(String args[]) {
@@ -390,7 +392,7 @@ public class GUI extends javax.swing.JFrame {
             //Process p = Runtime.getRuntime().exec("cmd /c start " + customBat);
             //p.waitFor();
             //f.delete();       
-            } catch (IOException e) {teksti.setText("Error: Creating bat file failed!");}
+            } catch (IOException e) {text = "Error: Creating bat file failed!"; scroll();}
             return null;
        }
     }
@@ -412,7 +414,7 @@ public class GUI extends javax.swing.JFrame {
             if(dlURL.equals("pidipidipidi")){   
                 try {
                     java.awt.Desktop.getDesktop().browse(java.net.URI.create("http://www.youtube.com/watch?v=n5JiIkjpeDY&t=0m15s"));
-                } catch (java.io.IOException e) {teksti.setText("Error: EasterEgg could not be opened :( ");}
+                } catch (java.io.IOException e) {text = "Error: EasterEgg could not be opened :( "; scroll();}
                 return null;
             }
             
@@ -420,7 +422,7 @@ public class GUI extends javax.swing.JFrame {
             try
             {
                 // start connecting
-                teksti.setText("Connecting...");
+                text = "Connecting..."; scroll();
                 URL url = new URL(this.dlURL);
                 url.openConnection();
                 InputStream reader = url.openStream(); 
@@ -434,7 +436,7 @@ public class GUI extends javax.swing.JFrame {
                     writer.write(buffer, 0, bytesRead);
                     buffer = new byte[153600];
                     totalBytesRead += bytesRead;
-                    teksti.setText("Downloaded: " + (totalBytesRead/1048576) + "MB");
+                    text = "Downloaded: " + (totalBytesRead/1048576) + "MB"; scroll();
                 }
                 writer.close();
                 
@@ -444,38 +446,38 @@ public class GUI extends javax.swing.JFrame {
                 
                 // start unzipping after download
                 unZipIt(zip, this.unZipTo);
-                teksti.setText("Downloaded file unzipped");
+                text = "Downloaded file unzipped"; scroll();
                 zipF.delete();
-                teksti.setText("zip file deleted");
+                text = "zip file deleted"; scroll();
                 
                 
                 // create temp folder and unzipt to it
                 tempF.mkdir();
                 unZipIt(vanillaJar, temp);
                 unZipIt(customJar, temp);
-                teksti.setText("Jar files unzipped");
+                text = "Jar files unzipped"; scroll();
                 
                 // delete META-INF if found
                 try { 
                     FileUtils.deleteDirectory(METAF);
                     teksti.setText("META-INF deleted");
-                } catch (IOException e) {teksti.setText("META-INF not found, skip deleting!");}
+                } catch (IOException e) {text = "META-INF not found, skip deleting!"; scroll();}
                 
                 zip(temp,customJar);
                 
                 // delete temp folder
                 try { 
                     FileUtils.deleteDirectory(tempF);
-                    teksti.setText("Temp folder deleted ");
-                } catch (IOException e) {teksti.setText("ERROR: temp folder not found!");}
+                    text = "Temp folder deleted "; scroll();
+                } catch (IOException e) {text = "ERROR: temp folder not found!"; scroll();}
                 
                 //end download
-                teksti.setText("Ready!");
+                text = "Ready!"; scroll();
                 
             }
             //inform user from error
-            catch (MalformedURLException e){teksti.setText("Error: URL cannot be connected!");}
-            catch (IOException e){teksti.setText("Error: Place to save file was incorrect");}
+            catch (MalformedURLException e){text = "Error: URL cannot be connected!"; scroll();}
+            catch (IOException e){text = "Error: Place to save file was incorrect"; scroll();}
             
             return null;
         }
@@ -500,11 +502,11 @@ public class GUI extends javax.swing.JFrame {
                 FileUtils.deleteDirectory(destFolder);
                 destFolder.mkdir();
                 teksti.setText("Folder to copy recreated");
-            } catch (IOException e) {teksti.setText("Folder to copy not found, skipping deleting!"); destFolder.mkdir();} 
+            } catch (IOException e) {text = "Folder to copy not found, skipping deleting!"; scroll(); destFolder.mkdir();} 
             
             try {
                 copyFolder(srcFolder,destFolder);
-            } catch(IOException e){teksti.setText("Error: Folder to Copy was not found!");} 
+            } catch(IOException e){text = "Error: Folder to Copy was not found!"; scroll();} 
                        
             return null;
         }
@@ -532,7 +534,7 @@ public class GUI extends javax.swing.JFrame {
                 case 3:{newimg = img.getScaledInstance(kuva3.getWidth(),kuva3.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
                 case 4:{newimg = img.getScaledInstance(kuva4.getWidth(),kuva4.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
                 case 5:{newimg = img.getScaledInstance(kuva5.getWidth(),kuva5.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
-                default:{teksti.setText("Error: Incorrect image number");}
+                default:{text = "Error: Incorrect image number"; scroll();}
             }
             // setting imageIcon
             image = new ImageIcon(newimg);
@@ -545,9 +547,9 @@ public class GUI extends javax.swing.JFrame {
                 case 3:{kuva3.setIcon(image); break;}
                 case 4:{kuva4.setIcon(image); break;}
                 case 5:{kuva5.setIcon(image); break;}
-                default:{teksti.setText("Error: Incorrect image number");}
+                default:{text = "Error: Incorrect image number"; scroll();}
             }
-            teksti.setText("Images loaded");
+            text = "Images loaded"; scroll();
             return null;
         }
      }
@@ -574,7 +576,7 @@ public class GUI extends javax.swing.JFrame {
             }
             out.close();
         }
-        teksti.setText(src + " --> " + dest);
+        text = src + " --> " + dest; scroll();
     }
     
     // unzip function (can't remember where this was found)
@@ -584,7 +586,7 @@ public class GUI extends javax.swing.JFrame {
             String zipPath = strZipFile.substring(0, strZipFile.length()-4);
             File temp = new File(unZipTo);
             temp.mkdir();
-            teksti.setText(zipPath + " created");
+            text = zipPath + " created"; scroll();
 
             ZipFile zipFile = new ZipFile(fSourceZip);
             Enumeration e = zipFile.entries();
@@ -598,7 +600,7 @@ public class GUI extends javax.swing.JFrame {
                 if(entry.isDirectory()){
                     continue;
                 } else {
-                    teksti.setText("Unzipping: " + entry);
+                    text = "Unzipping: " + entry; scroll();
                     BufferedInputStream bis = new BufferedInputStream(zipFile.getInputStream(entry));                    
                     byte buffer[] = new byte[1024];
                     FileOutputStream fos = new FileOutputStream(destinationFilePath);
@@ -617,7 +619,7 @@ public class GUI extends javax.swing.JFrame {
             }            
             zipFile.close();            
         }
-        catch(IOException e){teksti.setText("Error: Zipfile not found!");}               
+        catch(IOException e){text = "Error: Zipfile not found!"; scroll();}               
     }
       
     //Zip function from http://www.java-examples.com/create-zip-file-directory-recursively-using-zipoutputstream-example
@@ -629,14 +631,14 @@ public class GUI extends javax.swing.JFrame {
             ZipIt(zout, fileSource);
             zout.close();
                        
-            teksti.setText("Jar file has been created!");
+            text = "Jar file has been created!"; scroll();
                        
-        } catch(IOException e){teksti.setText("Error: Jar file could not be created");}
+        } catch(IOException e){text = ("Error: Jar file could not be created"); scroll();}
     }
     
     public void ZipIt(ZipOutputStream zout, File fileSource) {
         File[] files = fileSource.listFiles();
-        teksti.setText("Adding directory " + fileSource.getName());
+        text = "Adding directory " + fileSource.getName(); scroll();
                
         for(int i=0; i < files.length; i++) {
             if(files[i].isDirectory()){
@@ -645,7 +647,7 @@ public class GUI extends javax.swing.JFrame {
             }
                        
             try {
-                teksti.setText("Adding file " + files[i].getName());
+                text = "Adding file " + files[i].getName(); scroll();
                              
                 byte[] buffer = new byte[1024];
                 FileInputStream fin = new FileInputStream(files[i]);
@@ -658,7 +660,7 @@ public class GUI extends javax.swing.JFrame {
                 zout.closeEntry();
                 fin.close();
 
-            } catch(IOException ioe) {teksti.setText("Error: Adding file/directory to jar failed!");}
+            } catch(IOException ioe) {text = "Error: Adding file/directory to jar failed!"; scroll();}
         }
                
     }
@@ -678,8 +680,19 @@ public class GUI extends javax.swing.JFrame {
             out.close();
             (new picLoad(customNum)).execute();
             teksti.setText("New image loaded");
-        } catch(IOException e){teksti.setText("ERROR: custom image file not found!");}                   
+        } catch(IOException e){text = "ERROR: custom image file not found!"; scroll();}                   
     }
+    
+    public void scroll()
+            {           
+                        tulostus = teksti.getText() + "\n" + text + "\n";
+                        teksti.setText(tulostus);
+
+                        int y;
+                        teksti.selectAll();
+                        y = teksti.getSelectionEnd();
+                        teksti.select(y,y);
+            }
     
     // path to roaming folder
     String Roaming          = System.getProperty("user.home") + "\\AppData\\Roaming\\";
@@ -714,8 +727,12 @@ public class GUI extends javax.swing.JFrame {
     String launcherURL      = "";
     String versio           = "0.1";  
     
+    //tulostus tekstejä
+    String tulostus = "";
+    String text = "";
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane JScrollPane;
     private javax.swing.JTextField URL1;
     private javax.swing.JTextField URL2;
     private javax.swing.JTextField URL3;
@@ -730,7 +747,7 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JLabel kuva4;
     private javax.swing.JLabel kuva5;
     private javax.swing.JButton technic;
-    public javax.swing.JLabel teksti;
+    private javax.swing.JTextArea teksti;
     private javax.swing.JButton update1;
     private javax.swing.JButton update2;
     private javax.swing.JButton update3;
