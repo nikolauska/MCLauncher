@@ -33,10 +33,10 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+          <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -47,48 +47,52 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="technic" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="custom2" alignment="1" min="-2" pref="274" max="-2" attributes="0"/>
-                                          <Component id="update2" alignment="1" min="-2" pref="274" max="-2" attributes="0"/>
-                                          <Component id="kuva4" alignment="1" min="-2" pref="274" max="-2" attributes="0"/>
-                                          <Component id="kuva1" alignment="1" min="-2" pref="273" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
+                                  <Component id="kuva1" alignment="1" min="-2" pref="273" max="-2" attributes="0"/>
+                                  <Component id="kuva4" alignment="1" min="-2" pref="274" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="kuva2" min="-2" pref="253" max="-2" attributes="0"/>
                                   <Component id="ftb" min="-2" pref="253" max="-2" attributes="0"/>
-                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                      <Component id="kuva5" alignment="1" min="-2" pref="253" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="custom3" min="-2" pref="253" max="-2" attributes="0"/>
-                                          <Component id="update3" alignment="0" min="-2" pref="253" max="-2" attributes="0"/>
-                                          <Component id="URL3" alignment="0" min="-2" pref="253" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
                               </Group>
                           </Group>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="9" max="32767" attributes="0"/>
                               <Component id="teksti" min="-2" pref="823" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="custom1" min="-2" pref="281" max="-2" attributes="0"/>
-                          <Component id="update1" min="-2" pref="281" max="-2" attributes="0"/>
-                          <Component id="URL1" min="-2" pref="281" max="-2" attributes="0"/>
-                      </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
+                      <Component id="URL1" min="-2" pref="281" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                       <Component id="URL2" min="-2" pref="274" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="URL3" min="-2" pref="253" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace min="-2" pref="569" max="-2" attributes="0"/>
+                      <Component id="kuva5" min="-2" pref="253" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="custom1" min="-2" pref="281" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                      <Component id="custom2" min="-2" pref="274" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="custom3" min="-2" pref="253" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Component id="update1" min="-2" pref="281" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="update2" min="-2" pref="274" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="update3" min="-2" pref="253" max="-2" attributes="0"/>
+                  </Group>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -110,12 +114,12 @@
                   <Component id="ftb" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="teksti" min="-2" pref="24" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="kuva4" alignment="1" pref="155" max="32767" attributes="0"/>
-                  <Component id="kuva3" alignment="1" max="32767" attributes="0"/>
-                  <Component id="kuva5" max="32767" attributes="0"/>
+              <Component id="teksti" pref="125" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="kuva3" alignment="1" min="-2" pref="155" max="-2" attributes="0"/>
+                  <Component id="kuva4" alignment="1" min="-2" pref="155" max="-2" attributes="0"/>
+                  <Component id="kuva5" alignment="1" min="-2" pref="155" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -129,13 +133,13 @@
                   <Component id="update2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="update3" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="URL1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="URL2" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="URL3" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
