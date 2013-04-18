@@ -28,13 +28,9 @@ public class GUI extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         (new buttons(false)).execute();
-        (new picLoad(0)).execute();
-        (new picLoad(1)).execute();
-        (new picLoad(2)).execute();
-        (new picLoad(3)).execute();
-        (new picLoad(4)).execute();
-        (new picLoad(5)).execute();
+        (new picLoad()).execute();
         (new buttons(true)).execute();
+        text = "Initalisation ready!"; scroll();
     }
 
     @SuppressWarnings("unchecked")
@@ -160,7 +156,6 @@ public class GUI extends javax.swing.JFrame {
         teksti.setEditable(false);
         teksti.setColumns(20);
         teksti.setRows(5);
-        teksti.setText("Valmis");
         JScrollPane.setViewportView(teksti);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -512,44 +507,40 @@ public class GUI extends javax.swing.JFrame {
         }
     }
     
-    class picLoad extends SwingWorker<String, Object> {
-        int customNum;
-        
-        public picLoad (int customNum){
-            this.customNum = customNum;
-        }
-       
+    class picLoad extends SwingWorker<String, Object> {     
         @Override
         public String doInBackground() {
             // locating specific image
-            ImageIcon image = new ImageIcon(imageFolder + Integer.toString(this.customNum) + ".png");
-            Image img = image.getImage();  
-            Image newimg = img.getScaledInstance(kuva0.getWidth(),kuva0.getHeight(),java.awt.Image.SCALE_SMOOTH);
-             
-            // getting image size
-            switch(customNum){
-                case 0:{newimg = img.getScaledInstance(kuva0.getWidth(),kuva0.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
-                case 1:{newimg = img.getScaledInstance(kuva1.getWidth(),kuva1.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
-                case 2:{newimg = img.getScaledInstance(kuva2.getWidth(),kuva2.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
-                case 3:{newimg = img.getScaledInstance(kuva3.getWidth(),kuva3.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
-                case 4:{newimg = img.getScaledInstance(kuva4.getWidth(),kuva4.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
-                case 5:{newimg = img.getScaledInstance(kuva5.getWidth(),kuva5.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
-                default:{text = "Error: Incorrect image number"; scroll();}
+            for(int i = 0; i != 6; i++) {
+                ImageIcon image = new ImageIcon(imageFolder + Integer.toString(i) + ".png");
+                Image img = image.getImage();  
+                Image newimg = img.getScaledInstance(kuva0.getWidth(),kuva0.getHeight(),java.awt.Image.SCALE_SMOOTH);
+
+                // getting image size
+                switch(i){
+                    case 0:{newimg = img.getScaledInstance(kuva0.getWidth(),kuva0.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
+                    case 1:{newimg = img.getScaledInstance(kuva1.getWidth(),kuva1.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
+                    case 2:{newimg = img.getScaledInstance(kuva2.getWidth(),kuva2.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
+                    case 3:{newimg = img.getScaledInstance(kuva3.getWidth(),kuva3.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
+                    case 4:{newimg = img.getScaledInstance(kuva4.getWidth(),kuva4.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
+                    case 5:{newimg = img.getScaledInstance(kuva5.getWidth(),kuva5.getHeight(),  java.awt.Image.SCALE_SMOOTH); break;}
+                    default:{text = "Error: Incorrect image number"; scroll();}
+                }
+                // setting imageIcon
+                image = new ImageIcon(newimg);
+
+                // setting imageIcon to right picture
+                switch(i){
+                    case 0:{kuva0.setIcon(image); break;}
+                    case 1:{kuva1.setIcon(image); break;}
+                    case 2:{kuva2.setIcon(image); break;}
+                    case 3:{kuva3.setIcon(image); break;}
+                    case 4:{kuva4.setIcon(image); break;}
+                    case 5:{kuva5.setIcon(image); break;}
+                    default:{text = "Error: Incorrect image number"; scroll();}
+                }
+                text = "Image " + i + " loaded"; scroll();
             }
-            // setting imageIcon
-            image = new ImageIcon(newimg);
-             
-            // setting imageIcon to right picture
-            switch(customNum){
-                case 0:{kuva0.setIcon(image); break;}
-                case 1:{kuva1.setIcon(image); break;}
-                case 2:{kuva2.setIcon(image); break;}
-                case 3:{kuva3.setIcon(image); break;}
-                case 4:{kuva4.setIcon(image); break;}
-                case 5:{kuva5.setIcon(image); break;}
-                default:{text = "Error: Incorrect image number"; scroll();}
-            }
-            text = "Images loaded"; scroll();
             return null;
         }
      }
@@ -678,20 +669,18 @@ public class GUI extends javax.swing.JFrame {
             int length;
             while ((length = in.read(buffer)) > 0) {out.write(buffer, 0, length);}
             out.close();
-            (new picLoad(customNum)).execute();
-            text = "New image loaded"; scroll();
+            (new picLoad()).execute();
         } catch(IOException e){text = "ERROR: custom image file not found!"; scroll();}                   
     }
     
-    public void scroll()
-    {           
-                        tulostus = teksti.getText() + "\n" + text + "\n";
-                        teksti.setText(tulostus);
+    public void scroll() {           
+        tulostus = teksti.getText()+ text + "\n";
+        teksti.setText(tulostus);
 
-                        int y;
-                        teksti.selectAll();
-                        y = teksti.getSelectionEnd();
-                        teksti.select(y,y);
+        int y;
+        teksti.selectAll();
+        y = teksti.getSelectionEnd();
+        teksti.select(y,y);
     }
     public void fileCheck()
     {
