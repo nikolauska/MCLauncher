@@ -14,8 +14,11 @@ import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Enumeration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 import javax.swing.ImageIcon;
 import javax.swing.SwingWorker;
@@ -27,10 +30,7 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         initComponents();
         this.setLocationRelativeTo(null);
-        (new buttons(false)).execute();
         (new picLoad()).execute();
-        (new buttons(true)).execute();
-        text = "Initalisation ready!"; scroll();
     }
 
     @SuppressWarnings("unchecked")
@@ -264,17 +264,13 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_custom3ActionPerformed
 
     private void update3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update3ActionPerformed
-        (new buttons    (false)).execute();
-        
         File f = new File(custom3Folder);
         try {
             FileUtils.deleteDirectory(f);
             f.mkdir();
         } catch (IOException e) {text = "ERROR: Folder not found, skipping deleting!"; scroll(); f.mkdir();}
         (new Copy       (launcherVanilla,custom3Folder)).execute();
-        (new Download   (URL3.getText(), custom3Folder, custom3Jar)).execute();
-        
-        (new buttons    (true)).execute();
+        (new Download   (URL3.getText(), custom3Folder, custom3Jar)).execute();        
     }//GEN-LAST:event_update3ActionPerformed
 
     private void custom2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custom2ActionPerformed
@@ -282,8 +278,6 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_custom2ActionPerformed
 
     private void update2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update2ActionPerformed
-        (new buttons    (false)).execute();
-        
         File f = new File(custom2Folder);
         try {
             FileUtils.deleteDirectory(f);
@@ -291,8 +285,6 @@ public class GUI extends javax.swing.JFrame {
         } catch (IOException e) {text = "ERROR: Folder not found, skipping deleting!"; scroll(); f.mkdir();}
         (new Copy       (launcherVanilla,custom2Folder)).execute();
         (new Download   (URL2.getText(), custom2Folder, custom2Jar)).execute();
-        
-        (new buttons    (true)).execute();
     }//GEN-LAST:event_update2ActionPerformed
 
     private void custom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custom1ActionPerformed
@@ -300,17 +292,13 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_custom1ActionPerformed
 
     private void update1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update1ActionPerformed
-        (new buttons    (false)).execute();
-        
         File f = new File(custom1Folder);
         try {
             FileUtils.deleteDirectory(f);
             f.mkdir();
         } catch (IOException e) {text = "ERROR: Folder not found, skipping deleting!"; scroll(); f.mkdir();}
-        (new Copy       (launcherVanilla,custom1Folder)).execute();
-        (new Download   (URL1.getText(), desktop, custom1Jar)).execute();
-        
-        (new buttons    (true)).execute();
+        (new Copy       (vanillaFolder,custom1Folder)).execute();
+        (new Download   (URL1.getText(), launcherFolder, custom1Jar)).execute();
     }//GEN-LAST:event_update1ActionPerformed
 
     private void ftbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftbActionPerformed
@@ -350,7 +338,8 @@ public class GUI extends javax.swing.JFrame {
             this.yes = yes;
         }
         @Override
-        public String doInBackground() {      
+        public String doInBackground() {
+            
             custom1.setEnabled(this.yes);
             custom2.setEnabled(this.yes);
             custom3.setEnabled(this.yes);
@@ -421,7 +410,8 @@ public class GUI extends javax.swing.JFrame {
                 URL url = new URL(this.dlURL);
                 url.openConnection();
                 InputStream reader = url.openStream(); 
-                FileOutputStream writer = new FileOutputStream(zip);
+                FileOutputStream writer;
+                writer = new FileOutputStream(zip);
                 byte[] buffer = new byte[153600];
                 int totalBytesRead = 0;
                 int bytesRead;
@@ -442,8 +432,8 @@ public class GUI extends javax.swing.JFrame {
                 // start unzipping after download
                 unZipIt(zip, this.unZipTo);
                 text = "Downloaded file unzipped"; scroll();
-                zipF.delete();
-                text = "zip file deleted"; scroll();
+                //zipF.delete();
+                //text = "zip file deleted"; scroll();
                 
                 
                 // create temp folder and unzipt to it
@@ -460,19 +450,19 @@ public class GUI extends javax.swing.JFrame {
                 
                 zip(temp,customJar);
                 
-                // delete temp folder
+                /* delete temp folder
                 try { 
                     FileUtils.deleteDirectory(tempF);
                     text = "Temp folder deleted "; scroll();
                 } catch (IOException e) {text = "ERROR: temp folder not found!"; scroll();}
-                
+                */
                 //end download
                 text = "Ready!"; scroll();
                 
             }
             //inform user from error
             catch (MalformedURLException e){text = "Error: URL cannot be connected!"; scroll();}
-            catch (IOException e){text = "Error: Place to save file was incorrect"; scroll();}
+            catch (IOException e){text = "Error: zip file not found!"; scroll();}
             
             return null;
         }
@@ -501,7 +491,7 @@ public class GUI extends javax.swing.JFrame {
             
             try {
                 copyFolder(srcFolder,destFolder);
-            } catch(IOException e){text = "Error: Folder to Copy was not found!"; scroll();} 
+            } catch(IOException e){} 
                        
             return null;
         }
@@ -575,11 +565,13 @@ public class GUI extends javax.swing.JFrame {
         try {
             File fSourceZip = new File(strZipFile);
             String zipPath = strZipFile.substring(0, strZipFile.length()-4);
-            File temp = new File(unZipTo);
-            temp.mkdir();
-            text = zipPath + " created"; scroll();
+            File temp1;
+            temp1 = new File(unZipTo);
+            temp1.mkdir();
+            text = zipPath + " opened"; scroll();
 
-            ZipFile zipFile = new ZipFile(fSourceZip);
+            ZipFile zipFile;
+            zipFile = new ZipFile(fSourceZip);
             Enumeration e = zipFile.entries();
                        
             while(e.hasMoreElements()) {
@@ -604,18 +596,18 @@ public class GUI extends javax.swing.JFrame {
 
                     bos.flush();
                     bos.close();                                      
-                    bis.close();
-                    fos.close();
                 }
             }            
             zipFile.close();            
         }
-        catch(IOException e){text = "Error: Zipfile not found!"; scroll();}               
+        catch(IOException e){text = "Error: file not found!"; scroll();}               
     }
       
     //Zip function from http://www.java-examples.com/create-zip-file-directory-recursively-using-zipoutputstream-example
     public void zip(String src,String dest) { 
         try {
+            File f = new File(dest);
+            f.delete();
             FileOutputStream fout = new FileOutputStream(dest);
             ZipOutputStream zout = new ZipOutputStream(fout);
             File fileSource = new File(src);
@@ -673,18 +665,21 @@ public class GUI extends javax.swing.JFrame {
         } catch(IOException e){text = "ERROR: custom image file not found!"; scroll();}                   
     }
     
-    public void scroll() {           
-        tulostus = teksti.getText()+ text + "\n";
-        teksti.setText(tulostus);
+    public final void scroll() {
+        if(!text.equals(lastText)){
+            lastText = text;
+            tulostus = teksti.getText()+ text + "\n";
+            teksti.setText(tulostus);
 
-        int y;
-        teksti.selectAll();
-        y = teksti.getSelectionEnd();
-        teksti.select(y,y);
+            int y;
+            teksti.selectAll();
+            y = teksti.getSelectionEnd();
+            teksti.select(y,y);
+        }
     }
     public void fileCheck()
     {
-        File kansio = new File (System.getProperty("user.home") + "/AppData/Roaming/.minecraft/bin/minecraft.jar");
+        File kansio = new File (vanillaJar);
         
         if (kansio.exists())
         {
@@ -697,17 +692,17 @@ public class GUI extends javax.swing.JFrame {
         }
     }
     
-    // path to roaming folder
-    String Roaming          = System.getProperty("user.home") + "\\AppData\\Roaming\\";
+    // path to home folder
+    String home          = System.getProperty("user.home");
     
     // path to folders
-    String launcherFolder   = Roaming           + "Tanik_Launcher";
-    String vanillaFolder    = Roaming           + ".minecraft";
+    String launcherFolder   = home              + "\\Tanik_Launcher";
+    String vanillaFolder    = home              + "\\AppData\\Roaming\\.minecraft";
     String launcherVanilla  = launcherFolder    + "\\vanilla";
     String custom1Folder    = launcherFolder    + "\\custom1\\.minecraft";
     String custom2Folder    = launcherFolder    + "\\custom2\\.minecraft";
     String custom3Folder    = launcherFolder    + "\\custom3\\.minecraft";
-    //String imageFolder    = launcherFolder    + "Images\\";
+    //String imageFolder    = launcherFolder    + "/Images/";
     String imageFolder      = "D:\\Ohjelmointi\\Java\\Launcher\\src\\Images\\"; // WIP folder
     String temp             = launcherFolder    + "\\temp";
     String META             = temp              + "\\META-INF";
@@ -716,15 +711,12 @@ public class GUI extends javax.swing.JFrame {
     String vanillaExe       = launcherFolder    + "\\minecraft.exe";
     String technicExe       = launcherFolder    + "\\techniclauncher.exe";
     String ftbExe           = launcherFolder    + "\\ftb.exe";
-    String desktop          = "Z:\\Dox\\Desktop";
-    //String zip            = Roaming           + "\\temp.zip";
-    String zip              = "Z:\\Dox\\Desktop\\temp.zip";
-    //String customBat        = Roaming           + "\\temp.bat";
-    String customBat        = "Z:\\Dox\\Desktop\\temp.bat";
+    String zip              = home              + "\\temp.zip";
+    String customBat        = home              + "\\temp.bat";
     String custom1Jar       = custom1Folder     + "\\bin\\minecraft.jar";
     String custom2Jar       = custom2Folder     + "\\bin\\minecraft.jar";
     String custom3Jar       = custom3Folder     + "\\bin\\minecraft.jar";
-    String vanillaJar       = launcherVanilla   + "\\.minecraft\\bin\\minecraft.jar";
+    String vanillaJar       = vanillaFolder     + "\\bin\\minecraft.jar";
     
     //download URL and version number
     String launcherURL      = "";
@@ -733,6 +725,7 @@ public class GUI extends javax.swing.JFrame {
     //tulostus tekstejä
     String tulostus = "";
     String text = "";
+    String lastText = "";
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane JScrollPane;
