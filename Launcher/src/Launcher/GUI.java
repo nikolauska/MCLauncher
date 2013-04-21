@@ -30,7 +30,8 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         initComponents();
         this.setLocationRelativeTo(null);
-        (new picLoad()).execute();
+        new startCheck().execute();
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -270,7 +271,7 @@ public class GUI extends javax.swing.JFrame {
             f.mkdir();
         } catch (IOException e) {text = "ERROR: Folder not found, skipping deleting!"; scroll(); f.mkdir();}
         (new Copy       (launcherVanilla,custom3Folder)).execute();
-        (new Download   (URL3.getText(), custom3Folder, custom3Jar)).execute();        
+        (new Download   (URL3.getText(), custom3Folder)).execute();        
     }//GEN-LAST:event_update3ActionPerformed
 
     private void custom2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custom2ActionPerformed
@@ -284,7 +285,7 @@ public class GUI extends javax.swing.JFrame {
             f.mkdir();
         } catch (IOException e) {text = "ERROR: Folder not found, skipping deleting!"; scroll(); f.mkdir();}
         (new Copy       (launcherVanilla,custom2Folder)).execute();
-        (new Download   (URL2.getText(), custom2Folder, custom2Jar)).execute();
+        (new Download   (URL2.getText(), custom2Folder)).execute();
     }//GEN-LAST:event_update2ActionPerformed
 
     private void custom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custom1ActionPerformed
@@ -298,7 +299,7 @@ public class GUI extends javax.swing.JFrame {
             f.mkdir();
         } catch (IOException e) {text = "ERROR: Folder not found, skipping deleting!"; scroll(); f.mkdir();}
         (new Copy       (vanillaFolder,custom1Folder)).execute();
-        (new Download   (URL1.getText(), launcherFolder, custom1Jar)).execute();
+        (new Update   (URL1.getText(), launcherFolder)).execute();
     }//GEN-LAST:event_update1ActionPerformed
 
     private void ftbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftbActionPerformed
@@ -381,15 +382,13 @@ public class GUI extends javax.swing.JFrame {
        }
     }
     
-    class Download extends SwingWorker<String, Object> {
+    class Update extends SwingWorker<String, Object> {
         String dlURL;
         String unZipTo;
-        String customJar;
         
-        public Download(String dlURL, String unZipTo, String customJar) {
+        public Update(String dlURL, String unZipTo) {
             this.dlURL      = dlURL;
             this.unZipTo    = unZipTo;
-            this.customJar  = customJar;
         }
         
         @Override
@@ -439,7 +438,6 @@ public class GUI extends javax.swing.JFrame {
                 // create temp folder and unzipt to it
                 tempF.mkdir();
                 unZipIt(vanillaJar, temp);
-                unZipIt(customJar, temp);
                 text = "Jar files unzipped"; scroll();
                 
                 // delete META-INF if found
@@ -448,7 +446,6 @@ public class GUI extends javax.swing.JFrame {
                     text = "META-INF deleted"; scroll();
                 } catch (IOException e) {text = "META-INF not found, skip deleting!"; scroll();}
                 
-                zip(temp,customJar);
                 
                 /* delete temp folder
                 try { 
@@ -677,9 +674,12 @@ public class GUI extends javax.swing.JFrame {
             teksti.select(y,y);
         }
     }
-    
-    public void startCheck() {
-        // files needed for checking
+    class startCheck extends SwingWorker<String, Object> {
+        
+       @Override
+       public String doInBackground() throws IOException {
+           
+           // files needed for checking
         File vanillaF           = new File (vanillaFolder);
         File launcherF          = new File (launcherFolder);
         File vanillaLauncherF   = new File (launcherVanilla);
@@ -692,6 +692,7 @@ public class GUI extends javax.swing.JFrame {
         if (launcherF.exists()){// test if launcher exists
             text = "Launcher folder found"; scroll();
             launcherExists = true;
+            (new picLoad()).execute();
             
             if (vanillaF.exists()){ // test if vanilla minecraft exists
                 text = "Vanilla minecraft found"; scroll();
@@ -702,7 +703,108 @@ public class GUI extends javax.swing.JFrame {
                     vanillaLauncher = true;
                 }
             }
-        }       
+            
+            else{
+                
+            }
+        }
+        
+        else{
+            text = "Launcher folder does not exist, beginning to download Launcher folder"; scroll();
+            (new Download   (launcherURL, launcherFolder)).execute();
+            while (!done);
+        }
+           return null; 
+       }
+     }
+
+    
+    class Download extends SwingWorker<String, Object> {
+        String dlURL;
+        String unZipTo;
+        
+        
+        public Download(String dlURL, String unZipTo) {
+            this.dlURL      = dlURL;
+            this.unZipTo    = unZipTo;
+        }
+        
+        @Override
+        public String doInBackground() {
+            // easteregg
+            if(dlURL.equals("pidipidipidi")){   
+                try {
+                    java.awt.Desktop.getDesktop().browse(java.net.URI.create("http://www.youtube.com/watch?v=n5JiIkjpeDY&t=0m15s"));
+                } catch (java.io.IOException e) {text = "Error: EasterEgg could not be opened :( "; scroll();}
+                return null;
+            }
+            
+            // download function from http://cookbooks.adobe.com/post_Download_a_file_from_a_URL_in_Java-17947.html
+            try
+            {
+                // start connecting
+                text = "Connecting..."; scroll();
+                URL url = new URL(this.dlURL);
+                url.openConnection();
+                InputStream reader = url.openStream(); 
+                FileOutputStream writer;
+                writer = new FileOutputStream(zip);
+                byte[] buffer = new byte[153600];
+                int totalBytesRead = 0;
+                int bytesRead;
+
+                while ((bytesRead = reader.read(buffer)) > 0)
+                {  
+                    writer.write(buffer, 0, bytesRead);
+                    buffer = new byte[153600];
+                    totalBytesRead += bytesRead;
+                    text = "Downloaded: " + (totalBytesRead/1048576) + "MB"; scroll();
+                }
+                writer.close();
+                
+                File tempF = new File(temp); 
+                File METAF = new File(META);
+                File zipF = new File(zip);
+                
+                // start unzipping after download
+                unZipIt(zip, this.unZipTo);
+                text = "Downloaded file unzipped"; scroll();
+                //zipF.delete();
+                //text = "zip file deleted"; scroll();
+                
+                
+                // create temp folder and unzipt to it
+                tempF.mkdir();
+                unZipIt(vanillaJar, temp);
+                text = "Jar files unzipped"; scroll();
+                
+                // delete META-INF if found
+                try { 
+                    FileUtils.deleteDirectory(METAF);
+                    text = "META-INF deleted"; scroll();
+                } catch (IOException e) {text = "META-INF not found, skip deleting!"; scroll();}
+                
+                
+                /* delete temp folder
+                try { 
+                    FileUtils.deleteDirectory(tempF);
+                    text = "Temp folder deleted "; scroll();
+                } catch (IOException e) {text = "ERROR: temp folder not found!"; scroll();}
+                */
+                //end download
+                text = "Ready!"; scroll();
+                
+            }
+            //inform user from error
+            catch (MalformedURLException e){text = "Error: URL cannot be connected!"; scroll();}
+            catch (IOException e){text = "Error: zip file not found!"; scroll();}
+            
+            return null;
+        }
+        public void done()
+        {
+            done = true;
+        }
     }
     
     // path to home folder
@@ -711,7 +813,7 @@ public class GUI extends javax.swing.JFrame {
     // path to folders
     String launcherFolder   = home              + "\\Tanik_Launcher";
     String vanillaFolder    = home              + "\\AppData\\Roaming\\.minecraft";
-    String launcherVanilla  = launcherFolder    + "\\vanilla";
+    String launcherVanilla  = launcherFolder    + "\\vanilla\\.minecraft";
     String custom1Folder    = launcherFolder    + "\\custom1\\.minecraft";
     String custom2Folder    = launcherFolder    + "\\custom2\\.minecraft";
     String custom3Folder    = launcherFolder    + "\\custom3\\.minecraft";
@@ -732,7 +834,7 @@ public class GUI extends javax.swing.JFrame {
     String vanillaJar       = vanillaFolder     + "\\bin\\minecraft.jar";
     
     //download URL and version number
-    String launcherURL      = "";
+    String launcherURL      = "https://dl.dropboxusercontent.com/u/43689307/launcher.zip";
     String versio           = "0.1";
     
    
@@ -742,6 +844,8 @@ public class GUI extends javax.swing.JFrame {
     String text = "";
     String lastText = "";
     
+    //booleans
+    boolean done = false;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane JScrollPane;
     private javax.swing.JTextField URL1;
