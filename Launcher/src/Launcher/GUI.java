@@ -677,19 +677,32 @@ public class GUI extends javax.swing.JFrame {
             teksti.select(y,y);
         }
     }
-    public void fileCheck()
-    {
-        File kansio = new File (vanillaJar);
+    
+    public void startCheck() {
+        // files needed for checking
+        File vanillaF           = new File (vanillaFolder);
+        File launcherF          = new File (launcherFolder);
+        File vanillaLauncherF   = new File (launcherVanilla);
         
-        if (kansio.exists())
-        {
-            System.out.println("Kansio on olemassa");
-        }
-        
-        else
-        {
-            System.out.println("Kansiota ei ole olemassa");
-        }
+        //booleans for starting check
+        Boolean vanillaExists   = false;
+        Boolean launcherExists  = false;
+        Boolean vanillaLauncher = false;
+             
+        if (launcherF.exists()){// test if launcher exists
+            text = "Launcher folder found"; scroll();
+            launcherExists = true;
+            
+            if (vanillaF.exists()){ // test if vanilla minecraft exists
+                text = "Vanilla minecraft found"; scroll();
+                vanillaExists = true;
+                
+                if (vanillaLauncherF.exists()){ // test if vanilla minecraft already copied
+                    text = "Vanilla minecraft found in launcher folder"; scroll();
+                    vanillaLauncher = true;
+                }
+            }
+        }       
     }
     
     // path to home folder
@@ -720,7 +733,9 @@ public class GUI extends javax.swing.JFrame {
     
     //download URL and version number
     String launcherURL      = "";
-    String versio           = "0.1";  
+    String versio           = "0.1";
+    
+   
     
     //tulostus tekstejä
     String tulostus = "";
