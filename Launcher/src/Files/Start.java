@@ -1,15 +1,18 @@
-package Launcher;
+package Files;
 
 import Download.Download;
+import Launcher.GUI;
 import java.io.File;
 import java.io.IOException;
 import javax.swing.SwingWorker;
 
 public class Start extends SwingWorker<String, Object> { 
     private GUI GUIExt;
-       
+    private Launcher.Pic pic;
+    
     public Start(GUI GUIExt) {
         this.GUIExt = GUIExt;
+        this.pic = new Launcher.Pic(GUIExt);
     }
     
     @Override
@@ -27,7 +30,7 @@ public class Start extends SwingWorker<String, Object> {
         if (launcherF.exists()){// test if launcher exists
             GUIExt.textUpdate("Launcher folder found");
             launcherExists = true;
-            GUIExt.pic.Load();
+            pic.Load();
 
             if (vanillaF.exists()){ // test if vanilla minecraft exists
                 GUIExt.textUpdate("Vanilla minecraft found");

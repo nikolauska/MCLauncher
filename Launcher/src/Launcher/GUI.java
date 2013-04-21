@@ -1,5 +1,8 @@
 package Launcher;
 
+import Files.Copy;
+import Files.Start;
+import Files.BatWrite;
 import Download.Update;
 import java.io.File;
 import java.io.IOException;

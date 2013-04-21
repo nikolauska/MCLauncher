@@ -1,5 +1,6 @@
-package Launcher;
+package Files;
 
+import Launcher.GUI;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -62,7 +63,7 @@ public class Zip{
     }
     
     // unzip function (can't remember where this was found)
-    public void unZip(String strZipFile, String unZipTo) {
+    public void unZipIt(String strZipFile, String unZipTo) {
         try {
             File fSourceZip = new File(strZipFile);
             String zipPath = strZipFile.substring(0, strZipFile.length()-4);
