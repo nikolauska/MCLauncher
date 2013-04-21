@@ -33,15 +33,16 @@ public class Start extends SwingWorker<String, Object> {
             pic.Load();
 
             if (vanillaF.exists()){ // test if vanilla minecraft exists
-                GUIExt.textUpdate("Vanilla minecraft found");
+                GUIExt.textUpdate("Vanilla Minecraft found");
                 vanillaExists = true;
 
                 if (vanillaLauncherF.exists()){ // test if vanilla minecraft already copied
-                    GUIExt.textUpdate("Vanilla minecraft found in launcher folder");
+                    GUIExt.textUpdate("Vanilla Minecraft found in launcher folder");
                     vanillaLauncher = true;
                 }
             }else{
-
+               GUIExt.textUpdate("Vanilla Minecraft folder does not exist. Opening Minecraft.exe");
+               //Process pro = Runtime.getRuntime().exec(vanillaExe);
             }
         } else{
             GUIExt.textUpdate("Launcher folder does not exist, beginning to download Launcher folder");
