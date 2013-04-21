@@ -14,13 +14,13 @@ public class Update extends SwingWorker<String, Object> {
         String dlURL;
         String unZipTo;
         private GUI GUIExt;
-        private Launcher.Zip zip;
+        private Files.Zip zip;
         
         public Update(String dlURL, String unZipTo, GUI GUIExt) {
             this.dlURL      = dlURL;
             this.unZipTo    = unZipTo;
             this.GUIExt     = GUIExt;
-            this.zip        = new Launcher.Zip(GUIExt);
+            this.zip        = new Files.Zip(GUIExt);
         }
         
         @Override

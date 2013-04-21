@@ -11,9 +11,11 @@ import javax.swing.SwingWorker;
 
 public class Download extends SwingWorker<String, Object> {
     private GUI GUIExt;
-       
+    private Files.Zip zip;
+    
     public Download(GUI GUIExt) {
         this.GUIExt = GUIExt;
+        this.zip = new Files.Zip(GUIExt);
     }   
     
     @Override
@@ -44,7 +46,7 @@ public class Download extends SwingWorker<String, Object> {
             File zipF = new File(GUIExt.zip);
 
             // start unzipping after download
-            unZipIt(GUIExt.zip, GUIExt.launcherFolder);
+            zip.unZipIt(GUIExt.zip, GUIExt.launcherFolder);
             GUIExt.textUpdate("Downloaded file unzipped");
             zipF.delete();
             GUIExt.textUpdate("zip file deleted");
