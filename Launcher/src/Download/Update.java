@@ -95,9 +95,6 @@ public class Update extends SwingWorker<String, Object> {
             
             return null;
         }
-        public void done()
-        {
-            GUIExt.done = true;
-        }
+        
     }
     

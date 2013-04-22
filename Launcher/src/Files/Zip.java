@@ -1,20 +1,19 @@
 package Files;
 
 import Launcher.GUI;
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Enumeration;
+import java.util.List;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 public class Zip{
     private GUI GUIExt;
-       
+    List<String> fileList;
+    
     public Zip(GUI GUIExt) {
         this.GUIExt = GUIExt;
     }   
@@ -60,48 +59,50 @@ public class Zip{
 
             } catch(IOException ioe) {GUIExt.textUpdate("Error: Adding file/directory to jar failed!");}
         }          
-    }
-    
-    // unzip function (can't remember where this was found)
-    public void unZipIt(String strZipFile, String unZipTo) {
-        try {
-            File fSourceZip = new File(strZipFile);
-            String zipPath = strZipFile.substring(0, strZipFile.length()-4);
-            File temp1;
-            temp1 = new File(unZipTo);
-            temp1.mkdir();
-            GUIExt.textUpdate(zipPath + " opened");
+    }    
 
-            ZipFile zipFile;
-            zipFile = new ZipFile(fSourceZip);
-            Enumeration e = zipFile.entries();
-                       
-            while(e.hasMoreElements()) {
-                ZipEntry entry = (ZipEntry)e.nextElement();
-                File destinationFilePath = new File(unZipTo,entry.getName());
+     public void unZipIt(String zipFile, String outputFolder){
+     byte[] buffer = new byte[1024];
+     try{
+    	File folder = new File(zipFile);
+    	if(!folder.exists()){
+    		folder.mkdir();
+    	}
+
+    	ZipInputStream zis = 
+    	new ZipInputStream(new FileInputStream(zipFile));
+    	ZipEntry ze = zis.getNextEntry();
  
-                destinationFilePath.getParentFile().mkdirs();
-                               
-                if(entry.isDirectory()){
-                    continue;
-                } else {
-                    GUIExt.textUpdate("Unzipping: " + entry);
-                    BufferedInputStream bis = new BufferedInputStream(zipFile.getInputStream(entry));                    
-                    byte buffer[] = new byte[1024];
-                    FileOutputStream fos = new FileOutputStream(destinationFilePath);
-                    BufferedOutputStream bos = new BufferedOutputStream(fos,1024);
-                    
-                    int b;
-                    while ((b = bis.read(buffer, 0, 1024)) != -1) {
-                        bos.write(buffer, 0, b);
-                    }
+    	while(ze!=null){
+    	   String fileName = ze.getName();
+           File newFile = new File(outputFolder + File.separator + fileName);
+ 
+           GUIExt.textUpdate("file unzip: " + newFile.getAbsoluteFile());
+           if(ze.isDirectory()) 
+           {
+        	   new File(newFile.getParent()).mkdirs();
+           }
+           else
+           {
+        	FileOutputStream fos;
+                new File(newFile.getParent()).mkdirs();
+                fos = new FileOutputStream(newFile);             
 
-                    bos.flush();
-                    bos.close();                                      
+                int len;
+                while ((len = zis.read(buffer)) > 0) 
+                {
+                    fos.write(buffer, 0, len);
                 }
-            }            
-            zipFile.close();            
-        }
-        catch(IOException e){GUIExt.textUpdate("Error: file not found!");}               
-    }
+                fos.close();   
+           }
+           ze = zis.getNextEntry();
+    	}
+ 
+        zis.closeEntry();
+    	zis.close();
+ 
+    	GUIExt.textUpdate("Unzipping done");
+ 
+    }catch(IOException ex){}
+   } 
 }

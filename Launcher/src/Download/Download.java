@@ -1,5 +1,6 @@
 package Download;
 
+import Files.Start;
 import Launcher.GUI;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,7 +13,6 @@ import javax.swing.SwingWorker;
 public class Download extends SwingWorker<String, Object> {
     private GUI GUIExt;
     private Files.Zip zip;
-    
     public Download(GUI GUIExt) {
         this.GUIExt = GUIExt;
         this.zip = new Files.Zip(GUIExt);
@@ -42,7 +42,7 @@ public class Download extends SwingWorker<String, Object> {
                 GUIExt.textUpdate("Downloaded: " + (totalBytesRead/1048576) + "MB");
             }
             writer.close();
-
+            reader.close();
             File zipF = new File(GUIExt.zip);
 
             // start unzipping after download
@@ -54,7 +54,11 @@ public class Download extends SwingWorker<String, Object> {
         }
         catch (MalformedURLException e){GUIExt.textUpdate("Error: URL cannot be connected!");}
         catch (IOException e){GUIExt.textUpdate("Error: zip file not found!");}
-
         return null;
     }
+    @Override
+    protected void done(){
+        GUIExt.done = true;
+    }
+
 }

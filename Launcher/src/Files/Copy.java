@@ -38,7 +38,7 @@ public class Copy extends SwingWorker<String, Object> {
             folderCopy copy = new folderCopy(GUIExt);
             copy.copyFolder(srcFolder,destFolder);
         } catch(IOException e){} 
-                       
+        GUIExt.textUpdate("Copying ready!");               
         return null;
     }    
 }

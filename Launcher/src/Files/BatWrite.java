@@ -23,13 +23,13 @@ public class BatWrite extends SwingWorker<String, Object> {
             GUIExt.textUpdate("bat file created");
             BufferedWriter bat;
             bat = new BufferedWriter(new FileWriter(GUIExt.customBat));
-            bat.write(  
-                        "@echo off" + "\n" +
-                        "Title Minecraft Launcher" + "\n" +
-                        "set APPDATA=%CD%\\" + this.pack + "\n" +
-                        "start %CD%\\minecraft.exe"
-                     );
+            
+            bat.write("@echo off");
+            bat.write("Title Minecraft Launcher");
+            bat.write("set APPDATA=" + GUIExt.launcherFolder + "\\" + this.pack);
+            bat.write("start " + GUIExt.launcherFolder + "\\minecraft.exe");
             bat.close();
+            
             Process p = Runtime.getRuntime().exec("cmd /c start " + GUIExt.customBat);
             
             try {Thread.sleep(3000);} catch (InterruptedException ex) {}
