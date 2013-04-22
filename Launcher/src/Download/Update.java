@@ -59,6 +59,7 @@ public class Update extends SwingWorker<String, Object> {
                 File tempF = new File(GUIExt.temp); 
                 File METAF = new File(GUIExt.META);
                 File zipF = new File(GUIExt.zip);
+
                 
                 // start unzipping after download
                 zip.unZipIt(GUIExt.zip, this.unZipTo);
@@ -78,12 +79,13 @@ public class Update extends SwingWorker<String, Object> {
                     GUIExt.textUpdate("META-INF deleted");
                 } catch (IOException e) {GUIExt.textUpdate("META-INF not found, skip deleting!");}
                 
-                
+                /*
                 // delete temp folder
                 try { 
                     FileUtils.deleteDirectory(tempF);
                     GUIExt.textUpdate("Temp folder deleted");
                 } catch (IOException e) {GUIExt.textUpdate("ERROR: temp folder not found!");}
+                */
                 
                 //end download
                 GUIExt.textUpdate("Ready!");

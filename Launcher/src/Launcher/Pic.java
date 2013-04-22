@@ -1,6 +1,5 @@
 package Launcher;
 
-import Launcher.GUI;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;

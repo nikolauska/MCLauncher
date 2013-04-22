@@ -4,9 +4,7 @@ import Download.Update;
 import Files.BatWrite;
 import Files.Copy;
 import Files.Start;
-import java.io.File;
 import java.io.IOException;
-import org.apache.commons.io.*;
 
 public class GUI extends javax.swing.JFrame {
 
@@ -245,11 +243,6 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_custom3ActionPerformed
 
     private void update3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update3ActionPerformed
-        File f = new File(custom3Folder);
-        try {
-            FileUtils.deleteDirectory(f);
-            f.mkdir();
-        } catch (IOException e) {textUpdate("ERROR: Folder not found, skipping deleting!"); f.mkdir();}
         (new Copy     (launcherVanilla,custom3Folder, GUIExt)).execute();
         (new Update   (URL3.getText(), custom3Folder, GUIExt)).execute();        
     }//GEN-LAST:event_update3ActionPerformed
@@ -259,11 +252,6 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_custom2ActionPerformed
 
     private void update2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update2ActionPerformed
-        File f = new File(custom2Folder);
-        try {
-            FileUtils.deleteDirectory(f);
-            f.mkdir();
-        } catch (IOException e) {textUpdate("ERROR: Folder not found, skipping deleting!"); f.mkdir();}
         (new Copy    (launcherVanilla,custom2Folder, GUIExt)).execute();
         (new Update  (URL2.getText(), custom2Folder, GUIExt)).execute();
     }//GEN-LAST:event_update2ActionPerformed
@@ -273,13 +261,8 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_custom1ActionPerformed
 
     private void update1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update1ActionPerformed
-        File f = new File(custom1Folder);
-        try {
-            FileUtils.deleteDirectory(f);
-            f.mkdir();
-        } catch (IOException e) {textUpdate("ERROR: Folder not found, skipping deleting!"); f.mkdir();}
-        (new Copy     (vanillaFolder,custom1Folder, GUIExt)).execute();
-        (new Update   (URL1.getText(), launcherFolder, GUIExt)).execute();
+        (new Copy     (launcherVanilla,custom1Folder, GUIExt)).execute();
+        (new Update   (URL1.getText(), custom1Folder, GUIExt)).execute();
     }//GEN-LAST:event_update1ActionPerformed
 
     private void ftbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftbActionPerformed
@@ -348,7 +331,7 @@ public class GUI extends javax.swing.JFrame {
     public String custom1Jar       = custom1Folder     + "\\bin\\minecraft.jar";
     public String custom2Jar       = custom2Folder     + "\\bin\\minecraft.jar";
     public String custom3Jar       = custom3Folder     + "\\bin\\minecraft.jar";
-    public String vanillaJar       = vanillaFolder     + "\\bin\\minecraft.jar";
+    public String vanillaJar       = launcherVanilla   + "\\bin\\minecraft.jar";
     public String zip              = home              + "\\temp.zip";
     
     // Luancher download URL

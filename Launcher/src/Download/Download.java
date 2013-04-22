@@ -1,6 +1,5 @@
 package Download;
 
-import Files.Start;
 import Launcher.GUI;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -28,7 +27,8 @@ public class Download extends SwingWorker<String, Object> {
             GUIExt.textUpdate("Connecting...");
             URL url = new URL(GUIExt.launcherURL);
             url.openConnection();
-            InputStream reader = url.openStream(); 
+            InputStream reader; 
+            reader = url.openStream();
             FileOutputStream writer;
             writer = new FileOutputStream(GUIExt.zip);
             byte[] buffer = new byte[153600];
