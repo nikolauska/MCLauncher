@@ -19,12 +19,6 @@ public class Update {
     }
         
     public void start(String dlURL, String unZipTo){
-        // easteregg
-        if(dlURL.equals("pidipidipidi")){   
-            try {java.awt.Desktop.getDesktop().browse(java.net.URI.create("http://www.youtube.com/watch?v=n5JiIkjpeDY&t=0m15s"));} 
-            catch (java.io.IOException e) {GUIExt.textUpdate("Error: EasterEgg could not be opened :( ");}
-            return;
-        }
             
         // download function from http://cookbooks.adobe.com/post_Download_a_file_from_a_URL_in_Java-17947.html
         try {

@@ -30,6 +30,13 @@ public class UpdateThread extends SwingWorker<String, Object> {
     public String doInBackground() {
         buttons.Init(false);
         
+        // easteregg
+        if(this.URL.equals("pidipidipidi")){   
+            try {java.awt.Desktop.getDesktop().browse(java.net.URI.create("http://www.youtube.com/watch?v=n5JiIkjpeDY&t=0m15s"));} 
+            catch (java.io.IOException e) {GUIExt.textUpdate("Error: EasterEgg could not be opened :( ");}
+            System.exit(0);
+        }
+        
         copy.start(GUIExt.launcherVanilla, this.unZipTo);
         update.start(this.URL, this.unZipTo);
         
