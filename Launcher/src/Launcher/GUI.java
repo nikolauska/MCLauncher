@@ -318,7 +318,7 @@ public class GUI extends javax.swing.JFrame {
     
     // rest of the needed path files       
     public String vanillaExe       = launcherFolder    + "\\minecraft.exe";
-    public String technicExe       = launcherFolder    + "\\techniclauncher.exe";
+    public String technicExe       = launcherFolder    + "\\Technic.exe";
     public String ftbExe           = launcherFolder    + "\\ftb.exe";
     public String customBat        = home              + "\\temp.bat";
     public String custom1Jar       = custom1Folder     + "\\bin\\minecraft.jar";
