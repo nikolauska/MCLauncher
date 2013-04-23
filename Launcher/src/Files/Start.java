@@ -4,6 +4,8 @@ import Download.Download;
 import Launcher.GUI;
 import java.io.File;
 import java.io.IOException;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
 
 public class Start{ 
@@ -67,9 +69,24 @@ public class Start{
         }
         if(vanilla && !vanillaLauncher){
             GUIExt.textUpdate("Copying .minecraft to launcher");
-            customvanilla.mkdirs();
-            copy.start(GUIExt.vanillaFolder, GUIExt.launcherVanilla);
-        }
-        
+            
+            JDialog.setDefaultLookAndFeelDecorated(true);
+            int response = JOptionPane.showConfirmDialog(null, "Do you have un-modded minecraft?", "Confirm",
+            JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            
+            if (response == JOptionPane.NO_OPTION) {
+                try {
+                    Runtime.getRuntime().exec(GUIExt.vanillaExe);
+                    JOptionPane.showMessageDialog(GUIExt, "Use force update in options panel to remove mods!");
+                    start();                 
+                } catch (IOException ex) {}
+            } else if (response == JOptionPane.YES_OPTION) {
+                GUIExt.textUpdate("Copying .minecraft to launcher");
+                customvanilla.mkdirs();
+                copy.start(GUIExt.vanillaFolder, GUIExt.launcherVanilla);
+            } else if (response == JOptionPane.CLOSED_OPTION) {
+                start();
+            }
+        }       
     }
 }
