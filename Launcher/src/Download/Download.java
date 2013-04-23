@@ -7,19 +7,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import javax.swing.SwingWorker;
 
-public class Download extends SwingWorker<String, Object> {
+
+public class Download {
     private GUI GUIExt;
     private Files.Zip zip;
+    
     public Download(GUI GUIExt) {
         this.GUIExt = GUIExt;
         this.zip = new Files.Zip(GUIExt);
     }   
     
-    @Override
-    public String doInBackground() {
-
+    public void start(){
         // download function from http://cookbooks.adobe.com/post_Download_a_file_from_a_URL_in_Java-17947.html
         try
         {
@@ -43,6 +42,7 @@ public class Download extends SwingWorker<String, Object> {
             }
             writer.close();
             reader.close();
+            
             File zipF = new File(GUIExt.zip);
 
             // start unzipping after download
@@ -54,11 +54,5 @@ public class Download extends SwingWorker<String, Object> {
         }
         catch (MalformedURLException e){GUIExt.textUpdate("Error: URL cannot be connected!");}
         catch (IOException e){GUIExt.textUpdate("Error: zip file not found!");}
-        return null;
     }
-    @Override
-    protected void done(){
-        GUIExt.done = true;
-    }
-
 }

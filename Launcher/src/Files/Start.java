@@ -4,19 +4,22 @@ import Download.Download;
 import Launcher.GUI;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.SwingWorker;
 
-public class Start extends SwingWorker<String, Object> { 
+
+public class Start{ 
     private GUI GUIExt;
     private Launcher.Pic pic;
+    private Download dl;
+    private Copy copy;
     
     public Start(GUI GUIExt) {
         this.GUIExt = GUIExt;
         this.pic = new Launcher.Pic(GUIExt);
+        this.dl = new Download(GUIExt);
+        this.copy = new Copy(GUIExt);
     }
     
-    @Override
-    public String doInBackground() throws IOException {      
+    public void start() {      
         // files needed for checking
         File vanillaF           = new File (GUIExt.vanillaFolder);
         File launcherF          = new File (GUIExt.launcherFolder);
@@ -52,8 +55,7 @@ public class Start extends SwingWorker<String, Object> {
         //download/copy
         if(!launcher){
             GUIExt.textUpdate("Launcher folder does not exist, beginning to download Launcher folder");
-            (new Download(GUIExt)).execute();
-            try {Thread.sleep(10000);} catch (InterruptedException ex) {} //sleep function for waiting downloading to finish
+            dl.start();
             custom1.mkdirs();
             custom2.mkdirs();
             custom3.mkdirs();
@@ -61,15 +63,13 @@ public class Start extends SwingWorker<String, Object> {
         }
         if(!vanilla){
             GUIExt.textUpdate("Vanilla Minecraft folder does not exist. Opening Minecraft.exe");
-            Runtime.getRuntime().exec(GUIExt.vanillaExe);
+            try {Runtime.getRuntime().exec(GUIExt.vanillaExe); System.exit(0);} catch (IOException ex) {}
         }
         if(vanilla && !vanillaLauncher){
             GUIExt.textUpdate("Copying .minecraft to launcher");
             customvanilla.mkdirs();
-            (new Copy(GUIExt.vanillaFolder,GUIExt.launcherVanilla, GUIExt)).execute();
-            try {Thread.sleep(10000);} catch (InterruptedException ex) {} //sleep function for waiting copying to finish
+            copy.start(GUIExt.vanillaFolder, GUIExt.launcherVanilla);
         }
-        GUIExt.textUpdate("Starting check is ready!");
-        return null; 
+        
     }
 }

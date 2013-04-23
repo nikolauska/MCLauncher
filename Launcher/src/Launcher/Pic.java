@@ -7,6 +7,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 public class Pic{ 
@@ -19,7 +23,7 @@ public class Pic{
     public void Load() {
         // locating specific image
         for(int i = 0; i != 6; i++) {
-            ImageIcon image = new ImageIcon(GUIExt.imageFolder + Integer.toString(i) + ".png");
+            ImageIcon image = new ImageIcon(GUIExt.imageFolder + "\\" + Integer.toString(i) + ".png");
             Image img = image.getImage();  
             Image newimg = img.getScaledInstance(GUIExt.kuva0.getWidth(),GUIExt.kuva0.getHeight(),java.awt.Image.SCALE_SMOOTH);
 
@@ -50,20 +54,20 @@ public class Pic{
     }
     
     public void Change(int num){
-    try{
-            File src = new File(GUIExt.custom1Folder + "\\pic.png");
-            File dest = new File(GUIExt.imageFolder + (num + 2) +".png");
-            OutputStream out;
-            InputStream in; 
-                    
-            in = new FileInputStream(src);
-            out = new FileOutputStream(dest);
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = in.read(buffer)) > 0) {out.write(buffer, 0, length);}
-            out.close();
-            Load();
-        } catch(IOException e){GUIExt.textUpdate("ERROR: custom image file not found!");}  
+    	try{
+    	    File src = new File(GUIExt.custom1Folder + "\\pic.png");
+    	    File dest = new File(GUIExt.imageFolder + "\\" + (num + 2) + ".png");
+ 
+    	    InputStream inStream = new FileInputStream(src);
+    	    OutputStream outStream = new FileOutputStream(dest);
+ 
+    	    byte[] buffer = new byte[1024];
+    	    int length;
+    	    while ((length = inStream.read(buffer)) > 0){outStream.write(buffer, 0, length);}
+    	    inStream.close();
+    	    outStream.close(); 
+    	}catch(IOException e){}
     }  
+
 }
 

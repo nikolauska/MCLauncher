@@ -1,9 +1,6 @@
 package Launcher;
 
-import Download.Update;
 import Files.BatWrite;
-import Files.Copy;
-import Files.Start;
 import java.io.IOException;
 
 public class GUI extends javax.swing.JFrame {
@@ -12,7 +9,7 @@ public class GUI extends javax.swing.JFrame {
     public GUI() {
         initComponents();
         this.setLocationRelativeTo(null);
-        new Start(GUIExt).execute();       
+        new Threads.StartThread(GUIExt).execute();       
     }
 
     @SuppressWarnings("unchecked")
@@ -243,8 +240,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_custom3ActionPerformed
 
     private void update3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update3ActionPerformed
-        (new Copy     (launcherVanilla,custom3Folder, GUIExt)).execute();
-        (new Update   (URL3.getText(), custom3Folder, GUIExt)).execute();        
+        (new Threads.UpdateThread(GUIExt, URL3.getText(), custom3Folder, 3)).execute();      
     }//GEN-LAST:event_update3ActionPerformed
 
     private void custom2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custom2ActionPerformed
@@ -252,8 +248,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_custom2ActionPerformed
 
     private void update2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update2ActionPerformed
-        (new Copy    (launcherVanilla,custom2Folder, GUIExt)).execute();
-        (new Update  (URL2.getText(), custom2Folder, GUIExt)).execute();
+        (new Threads.UpdateThread(GUIExt, URL2.getText(), custom2Folder, 2)).execute(); 
     }//GEN-LAST:event_update2ActionPerformed
 
     private void custom1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custom1ActionPerformed
@@ -261,8 +256,7 @@ public class GUI extends javax.swing.JFrame {
     }//GEN-LAST:event_custom1ActionPerformed
 
     private void update1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_update1ActionPerformed
-        (new Copy     (launcherVanilla,custom1Folder, GUIExt)).execute();
-        (new Update   (URL1.getText(), custom1Folder, GUIExt)).execute();
+        (new Threads.UpdateThread(GUIExt, URL1.getText(), custom1Folder, 1)).execute(); 
     }//GEN-LAST:event_update1ActionPerformed
 
     private void ftbActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ftbActionPerformed
@@ -318,8 +312,7 @@ public class GUI extends javax.swing.JFrame {
     public String custom1Folder    = launcherFolder    + "\\custom1\\.minecraft";
     public String custom2Folder    = launcherFolder    + "\\custom2\\.minecraft";
     public String custom3Folder    = launcherFolder    + "\\custom3\\.minecraft";
-    //String imageFolder    = launcherFolder    + "/Images/";
-    public String imageFolder      = "D:\\Ohjelmointi\\Java\\Launcher\\src\\Images\\"; // WIP folder
+    public String imageFolder      = launcherFolder    + "\\Images";
     public String temp             = launcherFolder    + "\\temp";
     public String META             = temp              + "\\META-INF";
     
@@ -352,21 +345,21 @@ public class GUI extends javax.swing.JFrame {
     private javax.swing.JTextField URL1;
     private javax.swing.JTextField URL2;
     private javax.swing.JTextField URL3;
-    private javax.swing.JButton custom1;
-    private javax.swing.JButton custom2;
-    private javax.swing.JButton custom3;
-    private javax.swing.JButton ftb;
+    public javax.swing.JButton custom1;
+    public javax.swing.JButton custom2;
+    public javax.swing.JButton custom3;
+    public javax.swing.JButton ftb;
     public javax.swing.JLabel kuva0;
     public javax.swing.JLabel kuva1;
     public javax.swing.JLabel kuva2;
     public javax.swing.JLabel kuva3;
     public javax.swing.JLabel kuva4;
     public javax.swing.JLabel kuva5;
-    private javax.swing.JButton technic;
+    public javax.swing.JButton technic;
     public javax.swing.JTextArea teksti;
-    private javax.swing.JButton update1;
-    private javax.swing.JButton update2;
-    private javax.swing.JButton update3;
-    private javax.swing.JButton vanilla;
+    public javax.swing.JButton update1;
+    public javax.swing.JButton update2;
+    public javax.swing.JButton update3;
+    public javax.swing.JButton vanilla;
     // End of variables declaration//GEN-END:variables
 }

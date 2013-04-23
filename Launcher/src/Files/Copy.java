@@ -7,26 +7,20 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import javax.swing.SwingWorker;
 import org.apache.commons.io.FileUtils;
 
 
 // Copy funtion by mkyong from http://www.mkyong.com/java/how-to-copy-directory-in-java/
-public class Copy extends SwingWorker<String, Object> {
-    String src;
-    String dest;
+public class Copy {
     private GUI GUIExt;    
     
-    public Copy(String src, String dest, GUI GUIExt) {
-        this.src = src;
-        this.dest = dest;
+    public Copy(GUI GUIExt) {
         this.GUIExt = GUIExt;
     }
         
-    @Override
-    public String doInBackground(){
-        File srcFolder = new File(this.src);
-        File destFolder = new File(this.dest);
+    public void start(String src, String dest) {
+        File srcFolder = new File(src);
+        File destFolder = new File(dest);
             
         try {
             FileUtils.deleteDirectory(destFolder);
@@ -39,9 +33,9 @@ public class Copy extends SwingWorker<String, Object> {
             copy.copyFolder(srcFolder,destFolder);
         } catch(IOException e){} 
         GUIExt.textUpdate("Copying ready!");               
-        return null;
     }    
 }
+
 class folderCopy {       
     private GUI GUIExt; 
     public folderCopy(GUI GUIExt) {
