@@ -68,12 +68,12 @@ public class Start{
             try {Runtime.getRuntime().exec(GUIExt.vanillaExe); System.exit(0);} catch (IOException ex) {}
         }
         if(vanilla && !vanillaLauncher){
-            GUIExt.textUpdate("Copying .minecraft to launcher");
-            
+            // options panel
             JDialog.setDefaultLookAndFeelDecorated(true);
             int response = JOptionPane.showConfirmDialog(null, "Do you have un-modded minecraft?", "Confirm",
             JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             
+            // ask if unmodded
             if (response == JOptionPane.NO_OPTION) {
                 try {
                     Runtime.getRuntime().exec(GUIExt.vanillaExe);
