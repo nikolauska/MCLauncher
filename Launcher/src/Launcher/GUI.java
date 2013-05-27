@@ -333,13 +333,9 @@ public class GUI extends javax.swing.JFrame {
     //tulostus tekstejä
     public String tulostus = "";
     public String lastText = "";
-    
-    //booleans
-    public boolean done = false;
-    
+       
     //class init
     GUI GUIExt  = this;
-    Pic pic     = new Pic(GUIExt);
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane JScrollPane;
     private javax.swing.JTextField URL1;
